@@ -32,7 +32,8 @@ p {
 }
 ```
 
-![](scroll.gif)
+## Tracking ad engagement patterns
+This report analyses responses collected about ad type, interest level, clicks, and the time the ad was seen.
 
 ```{r}
 library(tidyverse)
@@ -61,7 +62,7 @@ The highest interest score recorded is **`r max_interest`**.
 
 This indicates that overall interest in the ads is relatively low.
 
-###Ad type distribution
+### Ad type distribution
 
 This bar chart shows the distribution of ad types.
 Clothing ads are the most common, while technology ads appear the least frequently.
@@ -74,7 +75,7 @@ ggplot(latest_data, aes(x = type)) +
     y = "Count"
   )
 ```
-###Ad click distribution
+### Ad click distribution
 
 This bar chart shows whether people clicked on the ad.
 Most responses were "no", suggesting low engagement with the ads.
