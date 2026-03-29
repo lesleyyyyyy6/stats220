@@ -1,6 +1,6 @@
 ---
 title: My dynamic report
-output: html_fragment
+output: html_document
 ---
 
 ```{r setup, include=FALSE}
