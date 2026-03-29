@@ -32,6 +32,13 @@ p {
 }
 ```
 
+```{r}
+library(magick)
+
+gif <- image_read("https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExaHNwbmllbXR0dnI1cmI1b3JnNTk1cm5pcjZwaWJ2bGhrODB5dTgydiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/mcsPU3SkKrYDdW3aAU/giphy.gif")
+image_write(gif, path = "processed.gif")
+```
+
 ## Tracking ad engagement patterns
 
 This report analyses responses collected about ad type, my interest, ad clicks, and the time the ad was seen.
