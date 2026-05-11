@@ -1,0 +1,205 @@
+---
+title: My visual data story
+output: html_document
+---
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = FALSE,
+  warning = FALSE,
+  message = FALSE
+)
+
+library(tidyverse)
+library(lubridate)
+library(stringr)
+
+logged_data <- read_csv(
+  "https://docs.google.com/spreadsheets/d/e/2PACX-1vTb4rR1s1h0Mr-yIQi2uQkB5QRxBCqUDA53fMHmO0kqXEurtaEqvVDd3xU0MIuYyQ0YPD0C9AAmGCRe/pub?output=csv"
+)
+
+latest_data <- logged_data %>%
+  rename(
+    type = `What type of ad is this?`,
+    interest = `How interested are you in this ad? (1-10)`,
+    click = `Did you click on the ad?`,
+    time = `What time did you see this ad?`,
+    related = `Was this ad related to something I recently searched for?`
+  ) %>%
+  mutate(
+    interest = as.numeric(interest),
+    Timestamp = ymd_hms(`时间戳记`),
+    click = str_to_title(click),
+    type = str_to_title(type),
+    time = str_to_title(time)
+  )
+
+average_interest <- mean(latest_data$interest, na.rm = TRUE)
+
+highest_interest <- max(latest_data$interest, na.rm = TRUE)
+```
+
+```{js}
+$(function() {
+  $(".level2").css('visibility', 'hidden');
+  $(".level2").first().css('visibility', 'visible');
+  $(".container-fluid").height($(".container-fluid").height() + 300);
+  $(window).on('scroll', function() {
+    $('h2').each(function() {
+      var h2Top = $(this).offset().top - $(window).scrollTop();
+      var windowHeight = $(window).height();
+      if (h2Top >= 0 && h2Top <= windowHeight / 2) {
+        $(this).parent('div').css('visibility', 'visible');
+      } else if (h2Top > windowHeight / 2) {
+        $(this).parent('div').css('visibility', 'hidden');
+      }
+    });
+  });
+})
+```
+
+```{css}
+body {
+  background-color: #0f172a;
+  color: #f8fafc;
+  font-family: Arial, sans-serif;
+}
+
+h1 {
+  color: #38bdf8;
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+h2 {
+  color: #7dd3fc;
+  border-bottom: 2px solid #38bdf8;
+  padding-bottom: 8px;
+  margin-top: 80px;
+}
+
+p {
+  font-size: 17px;
+  line-height: 1.8;
+}
+
+.figcaption {
+  display: none;
+}
+```
+
+## Introduction
+
+Instagram advertisements are heavily personalised and designed to capture user attention.
+
+This project investigates the types of advertisements that appeared most frequently during Instagram browsing, the times of day when advertisements were most engaging, and how interest levels varied across advertisement categories.
+
+A total of r nrow(latest_data) advertisement observations were collected and analysed.
+## Most Common Advertisement Categories
+```{r}
+ad_count <- latest_data %>%
+  group_by(type) %>%
+  summarise(total = n()) %>%
+  arrange(desc(total))
+
+ggplot(
+  ad_count,
+  aes(
+    x = reorder(type, total),
+    y = total,
+    fill = type
+  )
+) +
+  geom_col() +
+  coord_flip() +
+  scale_fill_brewer(palette = "PuBu") +
+  labs(
+    title = "Most Common Instagram Advertisement Categories",
+    x = "Advertisement Type",
+    y = "Number of Advertisements"
+  ) +
+  theme_minimal() +
+  theme(
+    legend.position = "none",
+    plot.title = element_text(
+      size = 18,
+      face = "bold"
+    )
+  )
+```
+Clothing advertisements appeared most frequently within the dataset, suggesting that Instagram’s advertising algorithm strongly prioritised fashion-related content.
+
+## Average Interest by Time of Day
+```{r}
+interest_time <- latest_data %>%
+  group_by(time) %>%
+  summarise(
+    avg_interest = mean(interest, na.rm = TRUE)
+  ) %>%
+  arrange(desc(avg_interest))
+
+ggplot(
+  interest_time,
+  aes(
+    x = reorder(time, avg_interest),
+    y = avg_interest,
+    fill = time
+  )
+) +
+  geom_col() +
+  scale_fill_brewer(palette = "PuBu") +
+  labs(
+    title = "Average Advertisement Interest by Time of Day",
+    x = "Time of Day",
+    y = "Average Interest Level"
+  ) +
+  theme_minimal() +
+  theme(
+    legend.position = "none",
+    plot.title = element_text(
+      size = 18,
+      face = "bold"
+    )
+  )
+```
+Average interest levels varied across different observation periods. Advertisements viewed during the evening generally received higher interest scores than advertisements viewed earlier in the day.
+
+## Interest Levels Across Advertisement Categories
+
+```{r}
+ggplot(
+  latest_data,
+  aes(
+    x = type,
+    y = interest,
+    fill = type
+  )
+) +
+  geom_boxplot() +
+  scale_fill_brewer(palette = "PuBu") +
+  labs(
+    title = "Interest Levels Across Advertisement Categories",
+    x = "Advertisement Type",
+    y = "Interest Level"
+  ) +
+  theme_minimal() +
+  theme(
+    legend.position = "none",
+    plot.title = element_text(
+      size = 18,
+      face = "bold"
+    )
+  )
+```
+Different advertisement categories produced different levels of engagement. Some categories consistently received low interest scores, while others showed greater variation and occasionally high engagement levels.
+
+## Conclusion
+
+This project explored how Instagram advertisements vary across categories and observation periods.
+
+The visualisations suggest that advertisement engagement is influenced by both advertisement type and browsing context. The analysis also demonstrates how personalised advertising systems attempt to maximise user attention through repeated exposure to specific categories of content.
+
+
+

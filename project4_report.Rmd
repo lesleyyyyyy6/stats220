@@ -1,0 +1,43 @@
+---
+title: "Project4"
+author: "JiaYi Liu"
+date: "2026-05-11"
+output: html_document
+---
+## Introduction
+
+This project focused on observing Instagram advertisements and recording how engaging different advertisements appeared during normal browsing sessions. The observations included advertisement categories, interest levels, whether the advertisement was clicked, the time of day, and whether the advertisement appeared related to recent searches.
+
+Additional questions were added to the Google Form compared with Project 2. In particular, questions related to browsing time and whether advertisements were connected to recent searches were included to help explore how Instagram’s advertising algorithm may personalise content. These questions helped support more meaningful visualisations and analysis.
+
+All observations for this project were collected individually. More than 20 additional observations were recorded for Project 4 in order to expand the dataset and support more detailed visualisations.
+
+Several different variables were selected for visualisation because they represented different aspects of advertisement engagement. Advertisement categories were used to examine what types of content appeared most frequently. Interest scores were used to investigate engagement levels across categories and observation periods.
+
+Different chart types were chosen depending on the type of data being analysed. Bar charts were useful for comparing frequencies and average values across categories, while boxplots were more suitable for displaying variation and distribution in interest levels.
+
+Some approaches were tested but later removed because they did not produce meaningful analysis. For example, timestamp-based hourly analysis was initially explored, but the recorded timestamps mainly reflected form submission times rather than the exact time advertisements were viewed. As a result, the final visualisations focused more heavily on variables that better represented the actual observations collected.
+
+## Visual data story
+The HTML visual data story for this project can be viewed here:
+[Visual Data Story](https://lesley6.github.io/stats220/visual_data_story.html)
+
+The visual data story demonstrates creativity through the combination of visual design, progressive reveal effects, and consistent styling. The HTML page used a dark colour theme combined with blue colour palettes to create a technology-focused presentation style that matched the topic of social media advertising.
+
+Creativity was also demonstrated through the structure of the webpage. Rather than displaying all information at once, the JavaScript reveal effect allowed sections of the story to appear progressively while scrolling. This helped create a more interactive reading experience.
+
+The visualisations were designed to communicate different aspects of advertisement engagement. The use of multiple chart types, including bar charts and boxplots, helped present both frequency-based and distribution-based insights. CSS styling was also used to improve readability and visual consistency across the webpage.
+
+## Learning reflection
+One important idea learned from Module 4 was that effective visual communication is not only about creating graphs, but also about presenting information in a way that supports interpretation and storytelling. Visualisations should be statistically meaningful, visually clear, and connected to the purpose of the analysis.
+
+This project also improved understanding of how data manipulation affects visualisation quality. Functions such as mutate(), group_by(), summarise(), and arrange() helped transform raw observational data into more meaningful summaries for plotting.
+
+In the future, I would like to explore more advanced interactive visualisation techniques and webpage design tools. I am also interested in learning more about how social media platforms personalise advertising content using user behaviour and recommendation systems.
+
+## Appendix
+```{r file='data_visualisation.R', eval=FALSE, echo=TRUE}
+
+```
+
+
