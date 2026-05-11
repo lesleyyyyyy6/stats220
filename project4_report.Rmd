@@ -2,7 +2,9 @@
 title: "Project4"
 author: "JiaYi Liu"
 date: "2026-05-11"
-output: html_document
+output:
+  html_document:
+    code_folding: hide
 ---
 ## Introduction
 
@@ -20,7 +22,7 @@ Some approaches were tested but later removed because they did not produce meani
 
 ## Visual data story
 The HTML visual data story for this project can be viewed here:
-[Visual Data Story](https://lesley6.github.io/stats220/visual_data_story.html)
+[Visual Data Story](https://lesleyyyyyy6.github.io/stats220/visual_data_story.html)
 
 The visual data story demonstrates creativity through the combination of visual design, progressive reveal effects, and consistent styling. The HTML page used a dark colour theme combined with blue colour palettes to create a technology-focused presentation style that matched the topic of social media advertising.
 
